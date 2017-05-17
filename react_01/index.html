@@ -21,21 +21,75 @@
           <div id="root">
 
           </div>
+          <button type="button" class="btn btn-default" name="grow" id="grow"> + </button>
+          <button type="button" class="btn btn-default" name="shrink" id="shrink"> - </button>
+          <button type="button" class="btn btn-default"  id="start"> Start </button>
+          <button type="button" class="btn btn-default"  id="stop"> Stop </button>
         </div>
       </div>
     </div>
     <script type="text/javascript">
     var div = React.DOM.div;
-    var object_course = div({className:"media header_style"},
+
+    var font_size = 3;
+    var progress = 20;
+
+    var course = function(){
+        return div({className:"media header_style"},
                           div({className: "meia-left border_header"},
                             React.createElement('img',{ className: "media-object", alt: "expample img", src:"img/logo.png"})
                           ),
                           div({className: "meia-body"},
-                            React.createElement('h3',{ className: "media-heading"},'kurs react2'),
-                            React.createElement('p',{},'react od podstaw')
+                            React.createElement('h3',{ className: "media-heading",style:{fontSize: (font_size/2) + 'em'} },'kurs react2'),
+                            React.createElement('p',{},'react od podstaw'),
+                            "Ładowanie...",
+                            div({className:"progress"},
+                            div({className:"progress-bar progress-bar-success progress-bar-striped active",style:{width:progress+'%'}}),
+                                  React.createElement('span',{},progress + '%'))
                           )
                       );
-    ReactDOM.render(object_course,document.getElementById('root'));
+    };
+    var grow_btn =  document.getElementById('grow');
+    var shrink_btn =  document.getElementById('shrink');
+    var start_btn =  document.getElementById('start');
+    var stop_btn =  document.getElementById('stop');
+
+    grow_btn.addEventListener('click', function(e) {
+      console.log(font_size);
+      font_size = font_size +1;
+      progress = progress +10;
+      render();
+    });
+    shrink_btn.addEventListener('click', function(e) {
+      console.log(font_size);
+      if (font_size<1) {
+        font_size = 1;
+      }else {
+        font_size = font_size -1;
+      }
+      if (progress<10) {
+        progress = 10;
+      }else {
+        progress = progress -10;
+      }
+      render();
+    });
+    var interval ;
+    start_btn.addEventListener('click', function(e) {
+        interval = setInterval(function(){
+          progress = progress +1;
+          render();
+        },700)
+    });
+    stop_btn.addEventListener('click', function(e) {
+        clearInterval(interval)
+        render()
+    });
+
+    function render(){
+      ReactDOM.render(course(),document.getElementById('root'));
+    }
+    render();
     </script>
   </body>
 </html>

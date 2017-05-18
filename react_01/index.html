@@ -12,40 +12,64 @@
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.js">
     </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.2/babel.js">
+
+    </script>
   </head>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h1>hello world !</h1>
+<!-- //          <h1>hello world !</h1> -->
           <div id="root">
 
           </div>
-          <button type="button" class="btn btn-default" name="grow" id="grow"> + </button>
+          <!-- <button type="button" class="btn btn-default" name="grow" id="grow"> + </button>
           <button type="button" class="btn btn-default" name="shrink" id="shrink"> - </button>
           <button type="button" class="btn btn-default"  id="start"> Start </button>
           <button type="button" class="btn btn-default"  id="stop"> Stop </button>
+          <button type="button" class="btn btn-default"  id="prev"> Prev </button>
+          <button type="button" class="btn btn-default"  id="next"> Next </button> -->
         </div>
       </div>
     </div>
-    <script type="text/javascript">
+    <footer class="footer">
+      <div class="container">
+        <p></p>
+      </div>
+    </footer>
+    <script type="text/javascript" src="js/courses_data.js">
+
+    </script>
+    <!-- <script type="text/javascript">
+
     var div = React.DOM.div;
 
     var font_size = 3;
     var progress = 20;
 
+    var index = 0;
+    var data = courses_data[index];
+    var elem =React.createElement("h1",null,"witaj w jsx");
+
     var course = function(){
         return div({className:"media header_style"},
-                          div({className: "meia-left border_header"},
-                            React.createElement('img',{ className: "media-object", alt: "expample img", src:"img/logo.png"})
+                          div({className: "media-left border_header"},
+                            React.createElement('img',{ className: "media-object", alt: "expample img", src: data.image})
                           ),
                           div({className: "meia-body"},
-                            React.createElement('h3',{ className: "media-heading",style:{fontSize: (font_size/2) + 'em'} },'kurs react2'),
-                            React.createElement('p',{},'react od podstaw'),
+                            React.createElement('h3',{ className: "media-heading",style:{fontSize: (font_size/2) + 'em'} },data.title),
+                            data.is_new?
+                            React.createElement('h3',{ className: "media-heading",style:{fontSize: (font_size/3) + 'em',fontWeight: 'bolder'} },"nowośc") : null,
+                            data.is_promo?
+                            React.createElement('h3',{ className: "media-heading",style:{fontSize: (font_size/3) + 'em',fontWeight: 'bolder'} },"promocja"):null,
+                            React.createElement('p',{},data.description),
                             "Ładowanie...",
                             div({className:"progress"},
                             div({className:"progress-bar progress-bar-success progress-bar-striped active",style:{width:progress+'%'}}),
-                                  React.createElement('span',{},progress + '%'))
+                              React.createElement('span',{},progress + '%')),
+                              elem
+
                           )
                       );
     };
@@ -53,15 +77,19 @@
     var shrink_btn =  document.getElementById('shrink');
     var start_btn =  document.getElementById('start');
     var stop_btn =  document.getElementById('stop');
+    var prev_btn =  document.getElementById('prev');
+    var next_btn =  document.getElementById('next');
+
+
 
     grow_btn.addEventListener('click', function(e) {
-      console.log(font_size);
+
       font_size = font_size +1;
       progress = progress +10;
       render();
     });
     shrink_btn.addEventListener('click', function(e) {
-      console.log(font_size);
+
       if (font_size<1) {
         font_size = 1;
       }else {
@@ -85,11 +113,27 @@
         clearInterval(interval)
         render()
     });
+      prev_btn.addEventListener('click', function(e) {
+          index = index === 0 ? 0 :( index -1 );
+          data = courses_data[index];
+          render()
+      });
+      next_btn.addEventListener('click', function(e) {
+          index  =  index +1;
+          data = courses_data[index];
+          render()
+      });
 
     function render(){
       ReactDOM.render(course(),document.getElementById('root'));
     }
     render();
+    </script> -->
+    <script type="text/babel" src="js/app.jsx">
+
+        //var elem = React.createElement("h1",null,"witaj w jsx111");
+
+
     </script>
   </body>
 </html>
